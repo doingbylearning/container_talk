@@ -27,4 +27,4 @@ set -o nounset
 
 info "do we have isolation yet? lets see if we can take a look at our host processes"
 info "but how are we gonna do that? mount proc to the rescue!!"
-sudo chroot rootfs
+sudo chroot rootfs /bin/bash

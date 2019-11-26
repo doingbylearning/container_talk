@@ -30,9 +30,13 @@ info "in the end dont we just need some good old chroot?"
 read
 info "okay let's try this out! lets check with the python version on the systems :D"
 info "python on the host system"
+set -x
 python --version
+set +x
 info "python in the rootfs"
+set -x
 sudo chroot rootfs python --version
+set +x
 
 info "BÄM we are done!!!"
 alert "wait a minute .... what the hell about other things ?"

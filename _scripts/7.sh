@@ -37,9 +37,7 @@ echo "I'm from lower!" > lower/in_both.txt
 echo "I'm from upper!" > upper/in_both.txt
 
 read
-sudo mount -t overlay overlay
-    -o lowerdir=/home/mburger/doingbylearning/container_talk/overlay/lower,upperdir=/home/mburger/doingbylearning/container_talk/overlay/upper,workdir=/home/mburger/doingbylearning/container_talk/overlay/work
-    /home/mburger/doingbylearning/container_talk/overlay/merged
+sudo mount -t overlay overlay -o lowerdir=/home/mburger/doingbylearning/container_talk/overlay/lower,upperdir=/home/mburger/doingbylearning/container_talk/overlay/upper,workdir=/home/mburger/doingbylearning/container_talk/overlay/work /home/mburger/doingbylearning/container_talk/overlay/merged
 set +x
 
 info "let's play around :D"

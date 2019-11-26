@@ -27,6 +27,7 @@ set -o nounset
 
 info "hmm can we do this better?"
 info "i heard about namespaces? what the fuck are they cO"
+read
 unshare --help
 read
 debug "HA now i know how to do this :D :D"
@@ -37,6 +38,7 @@ info "hmm .... maybe we want to drop privileges as early as possible? let's look
 debug "Unshare the PID namespace, so that the calling process has a new PID namespace for its children which is not shared with any previously existing process."
 debug "The calling process is not moved into the new namespace."
 debug "The first child created by the calling process will have the process ID 1 and will assume the role of init(1) in the new namespace."
+info "ahhh so we basically need to do it as a workaround so killing works as expected .... how dumb"
 
 read
 
@@ -79,7 +81,7 @@ hostname
 info "now let's do the same inside the container ... HA i said it :D"
 sudo mount -t proc proc "${PWD}/rootfs/proc"
 sudo unshare --pid --fork --mount --uts --mount-proc="${PWD}/rootfs/proc" \
-  chroot rootfs
+  chroot rootfs /bin/bash
 sudo umount "${PWD}/rootfs/proc"
 
 info "soooo lets get to the ipc thingy also"
@@ -88,7 +90,7 @@ ipcs -a
 info "and now lets isolate the shizzle"
 sudo mount -t proc proc "${PWD}/rootfs/proc"
 sudo unshare --pid --fork --mount --uts --ipc --mount-proc="${PWD}/rootfs/proc" \
-  chroot rootfs
+  chroot rootfs /bin/bash
 sudo umount "${PWD}/rootfs/proc"
 
 cowsay "i love this shit"

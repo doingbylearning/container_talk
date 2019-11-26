@@ -42,6 +42,6 @@ sudo cgset -r memory.limit_in_bytes="$((128 * 1000000))" "$uuid"
 sudo sudo mount -t proc proc "${PWD}/rootfs/proc"
 sudo cgexec -g "$cgroups:$uuid" \
   unshare --pid --fork --mount --uts --ipc --mount-proc="${PWD}/rootfs/proc" \
-    chroot rootfs
+    chroot rootfs /bin/bash
 sudo umount "${PWD}/rootfs/proc"
 set +x

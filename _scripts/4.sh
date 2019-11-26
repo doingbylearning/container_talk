@@ -53,7 +53,7 @@ set -x
 sudo mount -t proc proc "${PWD}/rootfs/proc"
 sudo ip netns exec netns_"$uuid" \
   unshare --pid --fork --mount --uts --ipc --mount-proc="${PWD}/rootfs/proc" \
-    chroot rootfs
+    chroot rootfs /bin/bash
 sudo umount "${PWD}/rootfs/proc"
 set +x
 read
