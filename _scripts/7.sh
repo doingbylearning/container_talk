@@ -25,31 +25,21 @@ function debug ()     { echo "$(_fmt debug) ${@}" 1>&2 || true; }
 #set -o pipefail
 set -o nounset
 
-cowsay "but wait there's more!"
-info "magic cow somebody should really make a cheeseburger out of you ..."
-read
-cowsay "but what about securityyyyyy"
-info "what about it? -.-"
-read
-cowsay "isn't that important tooooo?"
-info "but but but we did already so much *sigh* ok you win, yeah it is -kind of-"
-info "soooo what can we do even more about security?"
-
-info "capabilities"
-sudo capsh --print
-
-read
-info "so let's try it out"
+notice "but what about storage?"
+info "let's dig into it!"
 set -x
-sudo capsh --drop=cap_chown,cap_setpcap,cap_setfcap,cap_sys_admin --chroot=$PWD/rootfs --
+mkdir overlay
+cd overlay
+mkdir upper lower merged work
+echo "I'm from lower!" > lower/in_lower.txt
+echo "I'm from upper!" > upper/in_upper.txt
+echo "I'm from lower!" > lower/in_both.txt
+echo "I'm from upper!" > upper/in_both.txt
+
+read
+sudo mount -t overlay overlay
+    -o lowerdir=/home/mburger/doingbylearning/container_talk/overlay/lower,upperdir=/home/mburger/doingbylearning/container_talk/overlay/upper,workdir=/home/mburger/doingbylearning/container_talk/overlay/work
+    /home/mburger/doingbylearning/container_talk/overlay/merged
 set +x
 
-read
-cowsay "but wait there's more!"
-info "........"
-info "AH YES SECCOMP :D"
-alert "so whats the difference between seccomp and capabilities?"
-read
-curl https://raw.githubusercontent.com/moby/moby/master/profiles/seccomp/default.json
-info "WAHHHHHHHHHHH"
-
+info "let's play around :D"
